@@ -1,4 +1,4 @@
-package med.voll.api.medicos;
+package med.voll.api.model.medicos;
 
 public record DadosListagemMedico(
 
