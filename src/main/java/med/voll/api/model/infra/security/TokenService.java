@@ -5,6 +5,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import med.voll.api.model.usuario.Usuario;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -14,11 +15,16 @@ import java.time.ZoneOffset;
 @Service
 public class TokenService {
 
+
+    //isso ta vindo do application.properties
+    @Value("{api.security.token.secret}")
+    private String secret;
+
     //Para gerar token, temos documentacao do jwt
 
     public String generateToken(Usuario usuario) {
         try {
-            Algorithm algoritmo = Algorithm.HMAC256("12345678" );
+            Algorithm algoritmo = Algorithm.HMAC256(secret);
             String token = JWT.create()
                     .withIssuer("api do marcos")
                     .withSubject(usuario.getLogin())

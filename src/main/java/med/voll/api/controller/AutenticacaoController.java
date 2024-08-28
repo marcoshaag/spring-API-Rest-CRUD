@@ -1,6 +1,7 @@
 package med.voll.api.controller;
 
 import jakarta.validation.Valid;
+import med.voll.api.model.infra.dadosTokenJWT;
 import med.voll.api.model.infra.security.TokenService;
 import med.voll.api.model.usuario.DadosAutenticacao;
 import med.voll.api.model.usuario.Usuario;
@@ -32,7 +33,8 @@ public class AutenticacaoController {
         Authentication token = new UsernamePasswordAuthenticationToken(dados.login(),dados.senha());
         Authentication authenticatin = manager.authenticate(token);
 
-        return ResponseEntity.ok(tokenService.generateToken((Usuario) authenticatin.getPrincipal()));
+        String tokenJWT = tokenService.generateToken((Usuario) authenticatin.getPrincipal());
+        return ResponseEntity.ok(new dadosTokenJWT(tokenJWT));
     }
 
 
