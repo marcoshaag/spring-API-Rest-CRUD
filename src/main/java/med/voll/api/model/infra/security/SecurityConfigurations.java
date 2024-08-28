@@ -15,6 +15,8 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfigurations {
 
+    //SERVE PARA DESABILITAR A API DO POSTMAN, PONTO IMPORTANTE PARA SE ATUALIZARe voce
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf().disable()
@@ -23,20 +25,20 @@ public class SecurityConfigurations {
                 .and().build();
     }
 
-    //SERVE PARA DESABILITAR A API DO POSTMAN, PONTO IMPORTANTE PARA SE ATUALIZARe voce
+
+    //Ensinar ele injetar Authentication
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
         return configuration.getAuthenticationManager();
     }
 
-    //Ensinar ele injetar Authentication
+    //para usar algoritmo de senha
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    //para usar algoritmo de senha
 
 }
