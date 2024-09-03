@@ -1,5 +1,7 @@
 package med.voll.api.model.infra.security;
 
+import med.voll.api.model.infra.security.validar_requisicao.SecurityFilter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -11,10 +13,14 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfigurations {
+
+    @Autowired
+    SecurityFilter securityFilter;
 
     //SERVE PARA DESABILITAR A API DO POSTMAN, PONTO IMPORTANTE PARA SE ATUALIZARe voce
 
@@ -26,7 +32,8 @@ public class SecurityConfigurations {
                 .and().authorizeRequests()
                 .antMatchers(HttpMethod.POST,"/login").permitAll() //permitir que esse http libere o token ou visualizacao dele
                 .anyRequest().authenticated() // Aqui bloqueia se caso não tiver autenticado
-                .and().build();
+                .and().addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)// Ordem dos filtros
+                .build();
     }
 
 
