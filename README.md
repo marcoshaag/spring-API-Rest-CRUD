@@ -32,4 +32,5 @@
     <li><strong>JWT (JSON Web Token)</strong></li>
     <li><strong>Hibernate/JPA</strong></li>
     <li><strong>MySQL/PostgreSQL</strong> (ou qualquer outro banco de dados compatível)</li>
+    <li><strong>Docker</strong> Para facilitar o gerenciamento e orquestração do banco de dados e do aplicativo Spring em containers.</li>
 </ul>
